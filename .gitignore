@@ -13,3 +13,10 @@ desktop.ini
 *.log
 *.tmp
 *~
+
+# Agent configurations & custom skills
+.agents/
+parser/organize_folders.py
+parser/update_nextjs_json.py
+parser/compare_and_fix_math.py
+parser/apply_data_modifications.py
