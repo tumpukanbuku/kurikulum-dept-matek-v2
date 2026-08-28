@@ -1,0 +1,15 @@
+# Python Caches
+__pycache__/
+*.py[cod]
+*$py.class
+
+# OS Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# Logs & Temps
+*.log
+*.tmp
+*~

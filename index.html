@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arsip Kurikulum Matek - Departemen Radian HMDM FMIPA UI</title>
+  <meta name="description" content="Katalog & Arsip Kurikulum Departemen Matematika FMIPA UI by Departemen Radian">
+  
+  <!-- Ikon Browser / Favicon -->
+  <link rel="icon" type="image/png" href="https://iili.io/CgL7KNI.png">
+  
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- MathJax Configuration & Script for LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="wrap">
+    
+    <!-- Top Navigation Header -->
+    <nav class="top-nav">
+      <div class="brand">
+        <img src="https://iili.io/CgL7KNI.png" alt="Logo Departemen Radian" class="brand-logo">
+        <div class="brand-divider"></div>
+        <div>
+          <h1 class="brand-title">Departemen Radian</h1>
+          <p class="brand-subtitle">HMD Matematika FMIPA UI 2026</p>
+        </div>
+      </div>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Ganti Tema">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <header class="hero">
+      <h1>Mata Kuliah Dept Matek</h1>
+      <p>Website ini dibuat untuk memudahkan mahasiswa mengakses informasi terkait mata kuliah yang ingin diambil, sumber nya adalah file kurikulum 2024 masing masing prodi. Silakan akses sumber nya di <a href="https://drive.google.com/drive/folders/1Kl68BYDRUvT8pj4p_ZNzQQWcqx7HtYwZ" target="_blank" rel="noopener noreferrer" style="color: var(--primary); text-decoration: underline; font-weight: 600;">link ini</a>.</p>
+    </header>
+
+    <!-- Quick Stats Grid -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fa-solid fa-book"></i>
+        </div>
+        <div>
+          <span class="stat-val" id="stat-total-courses">0</span>
+          <p class="stat-lbl">Mata Kuliah</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon">
+          <i class="fa-solid fa-route"></i>
+        </div>
+        <div>
+          <span class="stat-val" id="stat-prereqs-count">0</span>
+          <p class="stat-lbl">Ada Prasyarat</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Control Panel (Search, Filters, View Toggle) -->
+    <section class="control-panel">
+      <div class="search-row">
+        <div class="search-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="search" id="search-input" class="search-input" placeholder="Cari nama, kode, deskripsi, atau prasyarat..." autocomplete="off">
+          <button id="clear-search" class="clear-search-btn" aria-label="Hapus Pencarian"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <!-- View Toggle Buttons -->
+        <div class="view-toggle-group">
+          <button id="view-grid-btn" class="view-btn active" title="Tampilan Grid" aria-label="Grid View">
+            <i class="fa-solid fa-table-cells-large"></i>
+          </button>
+          <button id="view-table-btn" class="view-btn" title="Tampilan Tabel" aria-label="Table View">
+            <i class="fa-solid fa-list"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-pills-row">
+        <!-- Prodi Filter Pills -->
+        <div class="pills-group" id="filter-prodi">
+          <button class="pill-btn active" data-value="all">Semua Prodi</button>
+          <button class="pill-btn" data-value="Matematika">Matematika</button>
+          <button class="pill-btn" data-value="Statistika">Statistika</button>
+          <button class="pill-btn" data-value="Ilmu Aktuaria">Ilmu Aktuaria</button>
+        </div>
+
+        <!-- Dropdowns -->
+        <div class="pills-group">
+          <select id="filter-kategori" class="select-filter" aria-label="Filter Kategori">
+            <option value="all">Semua Kategori</option>
+            <option value="Mata Kuliah Wajib Universitas">Wajib Universitas</option>
+            <option value="Mata Kuliah Wajib Fakultas">Wajib Fakultas</option>
+            <option value="Mata Kuliah Wajib Departemen">Wajib Departemen</option>
+            <option value="Mata Kuliah Wajib Prodi">Wajib Prodi</option>
+            <option value="Mata Kuliah Pilihan">Mata Kuliah Pilihan</option>
+          </select>
+
+          <select id="filter-sks" class="select-filter" aria-label="Filter SKS">
+            <option value="all">Semua Bobot SKS</option>
+            <option value="1">1 SKS</option>
+            <option value="2">2 SKS</option>
+            <option value="3">3 SKS</option>
+            <option value="4">4 SKS</option>
+            <option value="6">6 SKS</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Content Display Area -->
+    <main class="content-area">
+      <!-- Grid Container View -->
+      <div id="grid-view" class="grid-container">
+        <!-- Injected via JavaScript -->
+        <div class="loading-spinner-container">
+          <div class="spinner"></div>
+          <p>Memuat katalog kurikulum...</p>
+        </div>
+      </div>
+
+      <!-- Table Container View (Hidden initially) -->
+      <div id="table-view" class="table-card" style="display: none;">
+        <div class="table-wrapper">
+          <table class="course-table">
+            <thead>
+              <tr>
+                <th style="width: 60px; text-align: center;">No</th>
+                <th style="width: 140px;">Kode</th>
+                <th>Nama Mata Kuliah</th>
+                <th style="width: 250px;">Kategori</th>
+                <th style="width: 90px; text-align: center;">SKS</th>
+                <th style="width: 90px; text-align: center;">Semester</th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Injected via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state" style="display: none;">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <h3>Mata kuliah tidak ditemukan</h3>
+        <p>Coba gunakan kata kunci pencarian lain atau setel ulang filter.</p>
+        <button id="reset-filters-btn" class="cta-btn-sm" style="margin-top: 8px;">Reset Semua Filter</button>
+      </div>
+    </main>
+
+    <!-- Details Dialog Modal (Native HTML5) -->
+    <dialog id="course-detail-dialog" class="detail-dialog">
+      <div class="dialog-content">
+        <button class="close-dialog-btn" id="close-dialog-btn" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+        
+        <header class="dialog-header">
+          <div class="dialog-title-group">
+            <span id="modal-course-code" class="modal-code">SCMA601002</span>
+            <h2 id="modal-course-name" class="modal-title">Kalkulus I</h2>
+            <div class="dialog-badges">
+              <span class="badge-sks" id="modal-sks">3 SKS</span>
+              <span class="badge-category" id="modal-category">Wajib Departemen</span>
+            </div>
+          </div>
+        </header>
+
+        <div class="dialog-body">
+          <!-- Prodi -->
+          <div class="dialog-section">
+            <h3>Diambil Oleh Prodi</h3>
+            <div class="dialog-prodi-tags" id="modal-prodi-list">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- Deskripsi -->
+          <div class="dialog-section">
+            <h3>Deskripsi</h3>
+            <div class="dialog-text text-justify" id="modal-description">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- Prasyarat -->
+          <div class="dialog-section">
+            <h3>Prasyarat</h3>
+            <div class="dialog-prereqs" id="modal-prereqs">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+
+          <!-- Referensi Buku -->
+          <div class="dialog-section">
+            <h3>Referensi Buku Wajib</h3>
+            <ul class="dialog-references" id="modal-references">
+              <!-- Injected via JS -->
+            </ul>
+          </div>
+        </div>
+        
+        <footer class="dialog-footer">
+          <span class="footer-note">Departemen Radian &copy; 2026 · HMDM FMIPA UI</span>
+        </footer>
+      </div>
+    </dialog>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <img src="https://iili.io/CgL7KNI.png" alt="Logo Departemen Radian" class="footer-logo">
+          <div>
+            <h3>Departemen Radian</h3>
+            <p>HMD Matematika FMIPA UI 2026</p>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.instagram.com/radian.hmdm/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram Radian">
+            <i class="fa-brands fa-instagram"></i> @radian.hmdm
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 <strong>Departemen Radian HMDM</strong>. Dibuat untuk pelayanan civitas akademika Matematika, Statistika, dan Ilmu Aktuaria FMIPA UI.</p>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Data Kurikulum Lokal -->
+  <script src="data/kurikulum.js"></script>
+
+  <!-- Logika Aplikasi Utama -->
+  <script src="app.js"></script>
+</body>
+</html>
