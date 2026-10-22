@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Peta belajar dan perencana mata kuliah untuk program studi Matematika, Statistika, dan Ilmu Aktuaria FMIPA UI.">
+    <meta name="theme-color" content="#fafafa">
+    <title>Peta Belajar — Kurikulum Dept. Matek</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="pathway.css">
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="pathway.html" aria-label="Peta Belajar Kurikulum Dept. Matek">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M5 7.5c4.2-1.8 7.8-1.2 11 1.3v17c-3.2-2.5-6.8-3.1-11-1.3v-17Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M27 7.5c-4.2-1.8-7.8-1.2-11 1.3v17c3.2-2.5 6.8-3.1 11-1.3v-17Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          <span class="brand-copy">
+            <strong>Peta Belajar</strong>
+            <span>Kurikulum Dept. Matek · 2024</span>
+          </span>
+        </a>
+        <div class="topbar-right">
+          <span class="source-label"><span class="live-dot"></span> Data kurikulum FMIPA UI</span>
+          <a class="catalog-link" href="index.html">Buka katalog <span aria-hidden="true">↗</span></a>
+          <button id="theme-toggle" class="theme-toggle-btn" type="button" aria-label="Ganti tema">
+            <svg class="moon-icon" viewBox="0 0 20 20" aria-hidden="true"><path d="M16.7 12.4A7 7 0 0 1 7.6 3.3 7 7 0 1 0 16.7 12.4Z"/></svg>
+          </button>
+          <img class="radian-logo" src="https://iili.io/CgL7KNI.png" alt="Logo Departemen Radian">
+        </div>
+      </header>
+
+      <main>
+        <section class="intro">
+          <div class="intro-copy">
+            <p class="eyebrow"><span class="eyebrow-line"></span> Rencanakan perjalanan akademikmu</p>
+            <h1>Kurikulum itu peta,<br><span>bukan jalur tunggal.</span></h1>
+            <p class="intro-description">Jelajahi hubungan antar mata kuliah, atau susun rencana semester yang sesuai dengan perjalananmu sendiri.</p>
+          </div>
+          <div class="intro-note">
+            <span class="note-index">01 / 02</span>
+            <p>Mulai dari mata kuliah yang sudah kamu lewati. Sisanya, rancang langkah berikutnya.</p>
+            <span class="note-decoration" aria-hidden="true"></span>
+          </div>
+        </section>
+
+        <nav class="mode-tabs" aria-label="Mode perencanaan">
+          <button class="mode-tab active" type="button" data-view="map" aria-current="page">
+            <span class="tab-number">01</span>
+            <span><strong>Peta belajar</strong><small>Lihat urutan &amp; prasyarat</small></span>
+            <span class="tab-arrow" aria-hidden="true">↗</span>
+          </button>
+          <button class="mode-tab" type="button" data-view="planner">
+            <span class="tab-number">02</span>
+            <span><strong>Racik semester</strong><small>Susun rencana kuliahmu</small></span>
+            <span class="tab-arrow" aria-hidden="true">↗</span>
+          </button>
+        </nav>
+
+        <section id="map-view" class="view-panel" aria-labelledby="map-title">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">PETA KURIKULUM</p>
+              <h2 id="map-title">Lihat gambaran besarnya.</h2>
+              <p class="section-description">Pilih program studi. Klik nama prasyarat untuk menemukan mata kuliahnya di peta.</p>
+            </div>
+            <div class="map-summary">
+              <strong id="map-course-count">—</strong>
+              <span>mata kuliah di peta</span>
+            </div>
+          </div>
+
+          <div class="program-switcher" id="map-programs" role="group" aria-label="Program studi untuk peta">
+            <button type="button" class="program-choice active" data-program="Matematika" aria-pressed="true">Matematika <span>01</span></button>
+            <button type="button" class="program-choice" data-program="Statistika" aria-pressed="false">Statistika <span>02</span></button>
+            <button type="button" class="program-choice" data-program="Ilmu Aktuaria" aria-pressed="false">Ilmu Aktuaria <span>03</span></button>
+          </div>
+
+          <div class="map-toolbar">
+            <div class="semester-jumps" id="semester-jumps" aria-label="Pilih semester"></div>
+            <div class="map-legend" aria-label="Keterangan peta">
+              <span><i class="legend-dot required"></i> Wajib</span>
+              <span><i class="legend-dot elective"></i> Pilihan</span>
+              <span><i class="legend-line"></i> Arah panah: prasyarat → lanjutan; jalur berantai tidak diduplikasi</span>
+              <span class="legend-interaction">Pilih kartu untuk membuka detail</span>
+            </div>
+          </div>
+
+          <div class="path-selection" id="path-selection" hidden aria-live="polite">
+            <div class="path-selection-copy">
+              <span class="path-selection-mark" aria-hidden="true">↔</span>
+              <span><strong id="path-selection-title">Jalur mata kuliah</strong><small id="path-selection-meta"></small></span>
+            </div>
+            <button class="clear-path-button" id="clear-path" type="button">Hapus sorotan</button>
+          </div>
+
+          <div class="map-scroll" id="map-scroll" tabindex="0" aria-label="Peta mata kuliah, geser ke samping untuk melihat semester berikutnya">
+            <div class="map-grid" id="map-grid">
+            </div>
+          </div>
+          <section class="choice-shelf" id="choice-shelf" aria-labelledby="choice-title">
+            <div class="choice-heading">
+              <div>
+                <p class="section-kicker">RUANG UNTUK PILIHANMU</p>
+                <h3 id="choice-title">Mata kuliah pilihan</h3>
+                <p class="choice-description">Tidak terikat semester tertentu. Prasyarat tetap terhubung ke peta di atas.</p>
+              </div>
+              <span class="choice-count" id="choice-count">—</span>
+            </div>
+            <div class="choice-grid" id="choice-grid"></div>
+          </section>
+          <svg class="connector-layer" id="connector-layer" aria-hidden="true"></svg>
+          <p class="map-footnote"><span aria-hidden="true">↳</span> Detail kartu memuat kode, SKS, kategori, dan prasyarat. Koneksi langsung disingkat jika mata kuliah sudah terhubung melalui mata kuliah perantara. Semester pilihan mengikuti data yang tersedia pada Kurikulum 2024.</p>
+        </section>
+
+        <section id="planner-view" class="view-panel" aria-labelledby="planner-title" hidden>
+          <div class="section-heading planner-heading">
+            <div>
+              <p class="section-kicker">PERENCANA SEMESTER</p>
+              <h2 id="planner-title">Rangkai semester versimu.</h2>
+              <p class="section-description">Tandai yang sudah lulus, lalu tambahkan mata kuliah yang ingin direncanakan.</p>
+            </div>
+            <button class="text-button reset-button" id="reset-planner" type="button">Atur ulang <span aria-hidden="true">↺</span></button>
+          </div>
+
+          <div class="planner-profile">
+            <div class="profile-program">
+              <label for="planner-program">Program studimu</label>
+              <select id="planner-program">
+                <option value="Matematika">Matematika</option>
+                <option value="Statistika">Statistika</option>
+                <option value="Ilmu Aktuaria">Ilmu Aktuaria</option>
+              </select>
+            </div>
+            <div class="profile-gpa">
+              <label for="planner-gpa">IP acuan semester ini <span>· skala 0,00–4,00</span></label>
+              <div class="gpa-input-wrap">
+                <input id="planner-gpa" type="number" min="0" max="4" step="0.01" inputmode="decimal" placeholder="Contoh: 3.50">
+                <span>IP</span>
+              </div>
+            </div>
+            <div class="credit-limit" id="credit-limit" aria-live="polite">
+              <span class="limit-label">BATAS SKS SEMESTER INI</span>
+              <strong><span id="max-credits">—</span><small> SKS</small></strong>
+              <span id="limit-caption" class="limit-caption">Masukkan IP untuk menghitung</span>
+            </div>
+          </div>
+
+          <div class="planner-grid">
+            <aside class="passed-panel">
+              <div class="panel-heading">
+                <div><span class="panel-step">A</span><h3>Sudah lulus</h3></div>
+                <span class="panel-count" id="passed-count">0</span>
+              </div>
+              <p class="panel-hint">Cari dan tandai mata kuliah yang sudah kamu lulus. Ini dipakai untuk mengecek prasyarat dan total SKS.</p>
+              <label class="field-label" for="passed-search">Cari mata kuliah</label>
+              <div class="search-field">
+                <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8"></circle><path d="m13.2 13.2 4 4"></path></svg>
+                <input id="passed-search" type="search" placeholder="Nama atau kode…" autocomplete="off">
+              </div>
+              <div class="passed-results" id="passed-results" aria-live="polite"></div>
+              <div class="passed-selected">
+                <div class="selected-summary"><span>SKS lulus tercatat</span><strong><span id="passed-credits">0</span> SKS</strong></div>
+                <div id="passed-chips" class="passed-chips"></div>
+              </div>
+            </aside>
+
+            <section class="catalog-panel" aria-labelledby="catalog-title">
+              <div class="panel-heading">
+                <div><span class="panel-step">B</span><h3 id="catalog-title">Pilih mata kuliah</h3></div>
+                <span class="panel-count" id="catalog-count">0</span>
+              </div>
+              <p class="panel-hint">Prasyarat yang belum terpenuhi akan menahan tombol tambah. Mata kuliah lintas prodi tetap bisa direncanakan dengan penanda khusus.</p>
+              <div class="catalog-controls">
+                <label class="search-field catalog-search">
+                  <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8"></circle><path d="m13.2 13.2 4 4"></path></svg>
+                  <input id="course-search" type="search" placeholder="Cari nama atau kode…" autocomplete="off">
+                </label>
+                <label class="sr-only" for="course-scope">Filter mata kuliah</label>
+                <select id="course-scope">
+                  <option value="all">Semua mata kuliah</option>
+                  <option value="program">Prodi saya</option>
+                  <option value="external">Lintas prodi</option>
+                </select>
+              </div>
+              <div class="course-results" id="course-results" aria-live="polite"></div>
+            </section>
+
+            <aside class="plan-panel">
+              <div class="panel-heading">
+                <div><span class="panel-step">C</span><h3>Rencana kuliah</h3></div>
+                <span id="save-status" class="save-status" role="status">Belum disimpan</span>
+              </div>
+              <p class="panel-hint">Simpan rencana dan susun semester berikutnya kapan saja.</p>
+              <div class="plan-actions">
+                <button class="save-plan-button" id="save-plan" type="button">Simpan rencana</button>
+                <button class="next-semester-button" id="add-semester" type="button">+ Semester berikutnya</button>
+              </div>
+              <div class="semester-plan-list" id="semester-plan-list" aria-label="Daftar rencana semester"></div>
+              <div class="current-plan-heading">
+                <div>
+                  <strong id="current-semester-title">Semester 1</strong>
+                  <span id="current-semester-meta">0 mata kuliah · 0 SKS</span>
+                </div>
+                <span class="panel-count plan-count" id="plan-count">0</span>
+              </div>
+              <div class="plan-meter" aria-label="Pemakaian batas SKS">
+                <div class="meter-track"><span id="meter-fill"></span></div>
+                <div class="meter-labels"><span id="planned-credits">0 SKS</span><span id="meter-limit">dari — SKS</span></div>
+              </div>
+              <div class="plan-list" id="plan-list"></div>
+              <div class="plan-empty" id="plan-empty">
+                <span class="empty-drawing" aria-hidden="true">
+                  <svg viewBox="0 0 56 56" fill="none"><path d="M12 15.5h32M12 27.5h22M12 39.5h15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="41" cy="39.5" r="8" fill="currentColor" fill-opacity=".12" stroke="currentColor" stroke-width="2"/><path d="M41 35.5v8M37 39.5h8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </span>
+                <strong>Mulai dari satu langkah.</strong>
+                <span>Mata kuliah yang kamu tambah akan muncul di sini.</span>
+              </div>
+              <div class="plan-warning" id="plan-warning" hidden></div>
+              <div class="plan-total">
+                <span>Total rencana</span>
+                <strong><span id="plan-total-credits">0</span><small> / <span id="plan-total-limit">—</span> SKS</small></strong>
+              </div>
+            </aside>
+          </div>
+          <p class="planner-disclaimer">Alat bantu perencanaan berdasarkan data Kurikulum 2024, bukan persetujuan KRS. Konfirmasi penawaran kelas, ekuivalensi, dan aturan akademik ke prodi sebelum mengisi KRS.</p>
+        </section>
+      </main>
+
+      <footer class="page-footer">
+        <span>DEPARTEMEN MATEMATIKA · FMIPA UI</span>
+        <span>Dirancang untuk membantu, bukan menggantikan konsultasi akademik.</span>
+      </footer>
+    </div>
+    <script src="data/kurikulum.js"></script>
+    <script src="pathway.js"></script>
+  </body>
+</html>
